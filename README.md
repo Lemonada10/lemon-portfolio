@@ -35,11 +35,15 @@ A modern personal portfolio website built with **React** and **Vite**, showcasin
 ## Installation
 
 Install project dependencies:
-
-## Run Project
-- npm run dev
-- Open Localhost
   
 ```bash
 npm install
+```
+
+## Run Project
+
+```bash
+npm run dev
+```
+
 
