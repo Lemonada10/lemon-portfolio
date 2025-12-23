@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* ---- Light theme tokens (professional "paper + lemon") ---- */
+    --paper: #f1efe6;          /* page background (darker than before) */
+    --paper-2: #ece8dc;        /* slightly deeper gradient */
+    --ink: #0f172a;            /* text */
+    --muted: rgba(15, 23, 42, 0.65);
+
+    /* Card surface (warm, not pure white) */
+    --surface: rgba(255, 252, 246, 0.78);
+    --surface-strong: rgba(255, 252, 246, 0.90);
+
+    /* Borders + shadows */
+    --border: rgba(15, 23, 42, 0.12);
+    --shadow: 0 18px 60px rgba(15, 23, 42, 0.08);
+
+    /* Lemon accent (subtle) */
+    --lemon: rgba(250, 204, 21, 0.18);
+    --lemon-strong: rgba(250, 204, 21, 0.28);
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    /* ---- Dark theme tokens ---- */
+    --paper: #020617;
+    --paper-2: #050b1a;
+    --ink: #ffffff;
+    --muted: rgba(255, 255, 255, 0.70);
+
+    --surface: rgba(255, 255, 255, 0.05);
+    --surface-strong: rgba(255, 255, 255, 0.07);
+
+    --border: rgba(255, 255, 255, 0.10);
+    --shadow: 0 24px 90px rgba(0, 0, 0, 0.40);
+
+    --lemon: rgba(250, 204, 21, 0.12);
+    --lemon-strong: rgba(250, 204, 21, 0.18);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ✅ Page base */
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(250, 204, 21, 0.35);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(250, 204, 21, 0.9);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+}
+
+/* -------------------------------------------------------
+   ✅ Background canvas: deeper + warm + professional
+------------------------------------------------------- */
+.bg-glow {
+  position: relative;
+  isolation: isolate;
+
+  background:
+    radial-gradient(1200px 720px at 12% -10%, var(--lemon), transparent 62%),
+    radial-gradient(1000px 680px at 92% 0%, rgba(99, 102, 241, 0.08), transparent 60%),
+    radial-gradient(1100px 820px at 50% 112%, rgba(14, 165, 233, 0.07), transparent 64%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.03), rgba(15, 23, 42, 0.00)),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+}
+
+/* animated glow layer */
+.bg-glow::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(36px);
+  opacity: 0.95;
+  transform: translate3d(0, 0, 0);
+  animation: drift 18s ease-in-out infinite alternate;
+
+  background:
+    radial-gradient(760px 520px at 18% 12%, var(--lemon-strong), transparent 62%),
+    radial-gradient(980px 650px at 84% 18%, rgba(99, 102, 241, 0.12), transparent 66%),
+    radial-gradient(920px 720px at 52% 92%, rgba(14, 165, 233, 0.10), transparent 68%);
+}
+
+@keyframes drift {
+  0%   { transform: translate(-1%, -1%) scale(1); }
+  50%  { transform: translate(1%, 0%) scale(1.02); }
+  100% { transform: translate(0%, 1%) scale(1.01); }
+}
+
+/* -------------------------------------------------------
+   ✅ Make "white/70" cards look warmer in light mode
+------------------------------------------------------- */
+@layer utilities {
+  .glass {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Extra: slightly warm all "bg-white/70" elements in light mode */
+:root :where(.bg-white\/70) {
+  background-color: var(--surface) !important;
+}
+:root :where(.bg-white) {
+  background-color: var(--surface-strong) !important;
+}
+:root :where(.border-black\/10) {
+  border-color: var(--border) !important;
+}
+
+/* Keep dark mode exactly as you designed */
+.dark :where(.bg-white\/70) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+.dark :where(.bg-white) {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+.dark :where(.border-black\/10) {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+/* ---------------------------
+   ✅ Smooth theme transitions (NO text fade)
+----------------------------*/
+
+/* Only animate page surfaces (not text color) */
+html,
+body {
+  transition: background-color 450ms ease;
+}
+
+/* Animate background layers */
+.bg-glow,
+.bg-glow::before,
+.bg-glow::after {
+  transition: opacity 350ms ease, filter 450ms ease, background 450ms ease;
+}
+
+/* Animate cards/borders/shadows only */
+.bg-white,
+.bg-white\/70,
+.border-black\/10,
+.dark .bg-white,
+.dark .bg-white\/70,
+.dark .border-black\/10 {
+  transition: background-color 450ms ease, border-color 450ms ease, box-shadow 450ms ease;
+}
+
+/* Prevent “weird text fade” by NOT transitioning color */
+* {
+  transition-property: background-color, border-color, box-shadow, opacity, filter, transform;
+}
+
+/* DO NOT animate the particles canvas */
+#tsparticles,
+.tsparticles-canvas-el,
+canvas {
+  transition: none !important;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
