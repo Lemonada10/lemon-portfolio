@@ -1,11 +1,16 @@
 {
+
+  "engines": {
+  "node": ">=18"
+},
+
   "name": "firas-portfolio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npx vite build",
     "preview": "vite preview"
   },
   "dependencies": {
