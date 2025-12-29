@@ -50,7 +50,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-2">
               <a
-                href="/cv.pdf"
+                href="/CV.pdf"
                 className="hidden rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-black/80 shadow-sm transition hover:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/10 sm:inline-flex"
                 download
               >

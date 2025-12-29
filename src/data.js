@@ -28,7 +28,7 @@ export const projects = [
     ],
     links: {
       caseStudy: "#projects",
-      code: "https://github.com/Lemonada10/MakeSoft-SOEN341_Project_F24"
+      code: "https://github.com/Anthony4044/MakeSoft-SOEN341_Project_F24"
     }
   },
   {
