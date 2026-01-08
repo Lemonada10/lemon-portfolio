@@ -1,6 +1,6 @@
 export const profile = {
   name: "Firas Al Haddad",
-  title: "Software Engineering Student @ Concordia University",
+  title: "Software Engineering Student at Concordia University",
   tagline:
     "Eager to learn and excited to explore new concepts. ",
   location: "Montreal, QC",
